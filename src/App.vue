@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    
-    <h1>今日头条移动端</h1>
 
     <!-- 路由出口 -->
     <router-view/>

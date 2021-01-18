@@ -6,6 +6,17 @@ import store from './store'
 // 加载全局样式
 import './styles/index.less'
 
+// 加载 vant 组件库
+import Vant from 'vant';
+// 加载 vant 样式
+import 'vant/lib/index.css';
+// 全局注册 vant 中组件
+Vue.use(Vant);
+
+
+// 自动设置基准值 REM (html 标签字大小)
+import 'amfe-flexible'
+
 // 生产环境提示关闭
 Vue.config.productionTip = false
 
