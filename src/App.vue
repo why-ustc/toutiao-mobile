@@ -1,7 +1,8 @@
 <template>
   <div id="app">
 
-    <!-- 路由出口 -->
+    <!-- 一级路由出口：在路由表中只有俩个一级路由login+home, -->
+    <!-- login + home 一级路由就是渲染在这里 -->
     <router-view/>
   </div>
 </template>

@@ -3,15 +3,21 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// 加载全局样式
-import './styles/index.less'
-
 // 加载 vant 组件库
 import Vant from 'vant';
 // 加载 vant 样式
 import 'vant/lib/index.css';
 // 全局注册 vant 中组件
 Vue.use(Vant);
+
+// 加载全局样式
+import './styles/index.less'
+
+// 浏览器界面 使用 vue tools 调试
+Vue.config.devtools = true;
+
+// 导入 dayjs 第三方插件
+import './utils/dayjs'
 
 
 // 自动设置基准值 REM (html 标签字大小)

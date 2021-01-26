@@ -9,7 +9,7 @@
     
     4：创建以下新文件夹： 
         • src/api 目录，存储 前后端接口 封装。
-        • src/utils 目录，存储一些工具模块：如 时间处理 + 
+        • src/utils 目录，存储一些工具模块：如 时间处理 + axios请求
         • src/styles 目录，存储 样式资源
         • src/styles/index.less 文件，存储全局样式
         • 在 main.js 中加载全局样式 import './styles/index.less'
@@ -50,3 +50,74 @@
 
         ③最后就是如何使用：使用 i 标签，给两个类名，一个是字体类名 iconfont，一个是图标类名 toutiao-xxx：
             如：手机图标：<i class="iconfont iconshouji"></i>
+
+    9：路由表中的 俩个一级路由渲染到 app.vue 中的路由出口，
+       4个二级路由渲染到 父组件的 <router-view>中
+
+    10：如果要 改变 vant 中的样式，而一直在全局样式中加 !important觉得麻烦，可以在main.js文件中先导入vant的 
+        css样式文件，再导入全局样式文件。(后者覆盖前者)
+
+    11：Toast 轻提示 使用的话： this.$toast({
+                    message:'您已取消退出登录',
+                    position:'center'
+                })
+
+    12：VueRouter:
+            在 methods 中使用进行路由切换：this.$router.push/back('/login')
+            在 <template>中使用： $router.push/back('/login')，不需要this
+
+    13：vuex:
+
+    14：<template> 中使用 data 中的对象数据 userInfo:{}===> <van-cell :title="userInfo.name">
+        文本区：<span> {{userInfo.like_count}} </span>
+
+    15：css 样式作用域问题：
+        ①单文件组件的样式 <style lang='less'><style> 默认作用域全局样式，但是如果不希望当前组件中的样式
+    影响到别的组件，则 <style lang='less' scope><style>。
+        ②如何在有 scope 组件中设置别的组件(第三方库 或者自己写的其他组件文件)的样式：
+        首先单文件组件是默认可以作用其他组件的 根节点(第一个div节点)，可以通过审查元素类名作用
+    第三方组件的根组件类名设置css，或者添加一个类名。
+        第二，深度作用操作符：/deep/,可强行为第三方组件根节点的孩子节点作用 css
+    例如：  /deep/ .son { color:red }     (/deep/ === >>> === ::v-deep)
+            
+    16：home 组件 渲染文章数据内容使用了子组件，使用步骤：
+            创建子组件--加载子组件--注册挂载子组件--使用子组件标签--传值子组件渲染(创建-加载-注册-使用-传值渲染)
+
+    17：对文章列表组件 进行固定定位，让他文章展示的内容固定在手机屏幕某处。
+        否则: ①下拉文章内容时 上方的 logo搜索框 + 文章频道列表会被覆盖
+              ②上拉刷新时看不到最下方 正在更新或者没有更多文章 的提示(被下方四个图标遮盖住了) 
+
+    18：使用 vue tools 开发工具，不显示调试面板中的组件，点击控制台报错：
+            Cannot read property ‘VUE_DEVTOOLS_UID’ of undefined
+
+        在 main.js中加入如下代码即可：Vue.config.devtools = true;
+
+    19：绑定图片时：:src="articleItem.cover.images[0]"，不要忘记了 冒号：
+
+    20：使用 Dayjs 第三方插件:
+        ①查看官网--安装下载
+        ②查看本项目中 utils/dayjs.js 中的相关配置
+        ③在 main.js 中导入：import './utils/dayjs'
+
+    21：一些技巧
+        ①带条件 动态绑定属性：:class="{ active: index===active }"
+        ②在模板中设置了 css 后，设置在了需要设置元素的父元素，需要审查元素，
+    设置在其子元素中。 .van-grid-item__text--审查元素找到的
+        如：/deep/.active {
+                .van-grid-item__text{
+                    color: red !important;
+                }
+            }
+        而不能：/deep/.active {
+                    color: red !important;
+                }
+
+    22：不同模块的不同导入：
+            ①导入 axios 请求，文章频道列表------import { getArticlesList } from '@/API/user.js'
+
+            ②导入自己创立的 专门用于显示 文章内容 的组件
+            // 并注意在 此组件要注册 子组件 ArticleList
+            // ArticleList---此组件 对 子组件的命名，与挂载处名字一致就行
+            import ArticleList from './components/article-list'
+
+            ③导入自己封装的函数：import { getItem } from "@/utils/storage.js"
