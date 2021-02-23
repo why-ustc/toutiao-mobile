@@ -81,7 +81,7 @@ export default {
         return {
             // 用户表单--手机 + 验证码 数据
             user:{
-                mobile:'13922222222',
+                mobile:'13955555555',
                 code:'246810',
             },
 
@@ -146,8 +146,16 @@ export default {
                 // 将token 赋值给 vuex 的state 中 user
                 this.$store.commit('setUser',res.data)
 
-                // 登录成功后进入  我的页面
-                this.$router.push('/my')
+                // 清除 layout 的缓存，让他重新渲染
+                this.$store.commit('removeCachePage','layoutIndex')
+
+                // 登录成功后--this.$router.back() 这个不好，如果直接输入网址进来
+                // 如果直接输入网址进来，回到开始的导航界面
+                // this.$router.back()
+
+                // 京东淘宝 都是用这种--登录的优化
+                // 登录成功后,跳转到之前的页面，如果直接输入网址进来，就跳转首页
+                this.$router.push(this.$route.query.redirect || '/')
 
             //4：处理响应结果
             // catch 用来捕获错误并 提醒用户

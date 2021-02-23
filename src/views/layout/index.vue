@@ -5,7 +5,12 @@
 
         <!-- layout 子路由出口 -->
         <!-- 这是二级路由 -->
-        <router-view></router-view>
+
+
+        <!-- 二级路由组件的 缓存状态 -->
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
 
 
         <!-- 底部导航栏 -->
@@ -28,6 +33,10 @@ export default {
 
     // 给组件起名字
     name:'layoutIndex',
+
+    mounted(){
+        this.$store.commit('addCachePage','layoutIndex')
+    },
 
     data(){
         return {

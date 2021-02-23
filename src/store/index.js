@@ -15,7 +15,10 @@ export default new Vuex.Store({
         // 记录当前用户登录状态
 
         // user: JSON.parse(window.localStorage.getItem('user')),
-        user: getItem(USER_KEY)
+        user: getItem(USER_KEY),
+
+        // 缓存页面
+        catchPages: ['layoutIndex']
     },
 
     // 同步函数改变 state 中数据值只能是 mutations 中方法
@@ -32,6 +35,21 @@ export default new Vuex.Store({
             setItem(USER_KEY, state.user)
 
 
+        },
+
+        // 添加缓存页面
+        addCachePage(state, pageName) {
+            if (!state.catchPages.includes(pageName)) {
+                state.catchPages.push(pageName)
+            }
+        },
+
+        // 移除缓存页面
+        removeCachePage(state, pageName) {
+            const index = state.catchPages.indexOf(pageName)
+            if (index !== -1) {
+                state.catchPages.splice(index, 1)
+            }
         }
     },
     actions: {},

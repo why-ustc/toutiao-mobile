@@ -55,3 +55,30 @@ export const getArticlesList = () => {
         url: `/app/v1_0/user/channels`
     })
 }
+
+// 5：发送 axios 请求，获取用户个人资料---没有参数。文档有？？
+export const getUsreInfo = () => {
+    return request({
+        method: 'get',
+        url: `/app/v1_0/user/profile`
+    })
+}
+
+// 6：发送 axios 请求，修改用户个人资料---没有参数。文档有？？
+export const editUsreInfo = (data) => {
+    return request({
+        method: 'patch',
+        url: `/app/v1_0/user/profile`,
+        data
+    })
+}
+
+// 7：发送 axios 请求，修改用户头像资料---
+export const editUsrePhoto = (data) => {
+    return request({
+        method: 'patch',
+        url: `/app/v1_0/user/photo`,
+        data
+
+    })
+}

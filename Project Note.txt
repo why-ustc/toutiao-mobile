@@ -1,4 +1,4 @@
-一：项目创建阶段
+
     1：vue-cli 会自动建立本地仓库，所以直接将创建的代码 提交到远程仓库即可
 
     2：修改 根组件APP.vue + route/index.js
@@ -67,6 +67,7 @@
             在 <template>中使用： $router.push/back('/login')，不需要this
 
     13：vuex:
+        ①使用 state 中数据：this.$store.state.变量名
 
     14：<template> 中使用 data 中的对象数据 userInfo:{}===> <van-cell :title="userInfo.name">
         文本区：<span> {{userInfo.like_count}} </span>
@@ -121,3 +122,86 @@
             import ArticleList from './components/article-list'
 
             ③导入自己封装的函数：import { getItem } from "@/utils/storage.js"
+
+    23：搜索框模块--函数防抖节流：npm i lodash。
+        lodash 中有函数专门针对函数 防抖 + 函数节流。(面试一般考手写)
+        
+        // 导入 lodash,完成 函数防抖 + 函数节流: 一般命名 _ 为 lodash
+        import _ from 'lodash'
+
+        // _.debounce 是对一个函数进行防抖处理，并返回处理好的一个函数
+        const fn = _.debounce(()=> { 
+            console.log('hello'); 
+        }, 1000) 
+
+        /* 一连串的 执行函数 但是只会执行一个 hello，
+            因为 fn()是经过函数防抖处理的函数，一秒最多执行一次，
+            并且每处理一个都会重新计时一秒钟 */
+        fn(); 
+        // fn(); fn(); fn(); fn(); fn(); fn(); fn(); fn();
+
+        // 这样才会执行第二次，因为他等了 1.2秒
+        setTimeout(()=>{
+            fn();
+        },1200)
+
+    24：封装 axios 请求时，如果只有一个参数就直接加入到 params 中
+            如果有多个参数，名称对象，并且只能写 param
+
+        // 搜索联想建议 axios 请求封装
+        export const getSearchSuggests = (q) => {
+            return request({
+                method: 'get',
+                url: `/app/v1_0/suggestion`,
+                params: {
+                    q
+                }
+            })
+        }
+
+
+        // 搜索结果 axios 请求封装
+        // 参数有三个，所以直接当成 一个对象传入
+        export const getSearchResults = (params) => {
+            return request({
+                method: 'get',
+                url: `/app/v1_0/search`,
+                params
+            })
+        }
+
+    25：子组件绑定的 传给父组件的函数，必须绑定在父组件中使用子组件 标签处
+
+    26：发布评论，关注作者等等，为防止网速慢导致多次点击：在函数中添加：
+         async onSendComment(){
+            // 防止多次点击
+            this.$toast.loading({
+                message:'发布中',
+                forbidClick:true //禁止北京点击
+            })
+
+            const res = await function()...
+         }
+
+    27：如果父组件(定义 commentList:[]) 需要使用 子组件数据 list，如评论数据数组，但是这个数据是在
+    子组件 axios 获取的，可以在父组件 传值props 给子组件:
+    :list="commentList",这样子组件改变list 值时候，父组件也得到了一样的数据
+
+    28：动态绑定 + 静态绑定
+        ①静态绑定，绑定的数据就是字符串
+        <van-image src='http......'></>
+
+        ②动态绑定 v-bind:.....,绑定的数据就是 变量
+        <van-image :src='article.art_photo'></>
+
+    29:父组件传给 子组件 props 数据，除了 数组 + 对象，都不能直接
+    在子组件修改，必须传事件 $emit 给父组件，让父组件修改 
+
+    30：上传新头像使用 裁切功能 使用第三方插件
+        ① npm install cropperjs
+
+    31:webSocket 的使用
+    ①npm i socket.io-client
+    ②在需要用 webSocket的组件中：
+        // 加载 socketIo：  import io from 'socket.io-client'
+        // 建立连接：       const socket = io('http://ttapi.research.itcast.cn')

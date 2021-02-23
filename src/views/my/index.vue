@@ -19,7 +19,8 @@
 
                     <!-- 定义右侧编辑资料 -->
                     <template #right-icon>
-                        <van-button type="default" round size="mini">
+                        <van-button type="default" round size="mini"
+                        to="/user/profile">
                             编辑资料</van-button>
                     </template> 
 
@@ -84,7 +85,7 @@
 
             <!-- 第五行：小智同学 -->
             <div class="robot">
-                <van-cell title="小智同学" is-link to="#">
+                <van-cell title="小智同学" is-link  to='/user/chat'>
 
                 </van-cell>
             </div>

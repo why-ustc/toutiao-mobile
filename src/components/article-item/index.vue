@@ -3,11 +3,18 @@
        
         <!-- 渲染每篇文章内容 + 图片-->
         <!-- title:标题插槽  label：作者插槽  value：右边图片插槽-->
-        <van-cell >
+
+        <!-- 动态路由传参 -->
+        <van-cell :to="{
+            name:'article',
+            params:{
+                articleId:articleItem.art_id
+            }
+        }">
 
             <!-- 标题插槽 -->
             <div slot="title" class="title van-multi-ellipsis--l3">
-                {{this.articleItem.title}}
+                {{articleItem.title}}
                 <!-- 标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了标题太长了 -->
             </div>
 

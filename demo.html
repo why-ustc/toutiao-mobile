@@ -5,19 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+
+    </style>
 </head>
 
 <body>
-    <div class="cla">
-        123
-    </div>
 
     <script>
-        let row = 7,
-            col = 9;
-        let count = Math.ceil(Math.min(row, col) / 2);
-        alert(count)
+        var twoSum = function(n) {
+
+
+            //就是判断出来总共有多少个
+            var num = n * 6; //点数的最大取值
+            var dp = [] //dp数组
+
+            for (var i = 0; i <= n; i++) {
+                dp[i] = []
+            }
+
+            //赋初值
+            for (var i = 1; i <= 6; i++) {
+                dp[1][i] = 1; //如果只有一个骰子,这些点数出现 的次数都只有一次
+            }
+
+
+            for (var i = 2; i <= n; i++) { //从2颗骰子开始计算
+                for (let j = i; j < 6 * i; j++) { //j就是点数之和s,是从i开始的，
+                    //代表i个骰子点数之和的最小值为i
+                    for (let k = 1; k <= 6; k++) {
+                        //dp[i][j]表示 i个骰子点数之和为j的数量有多少？
+                        //答：当第i个骰子点数为k时，那么前i-1个骰子点数和必须等于j-k，则k+(j-k)=j;
+                        //    把所有dp[i-1][j-k]的数量加起来(k∈[1,6])，就等于dp[i][j]的数量了
+                        if (j - k > 0) dp[i][j] += dp[i - 1][j - k];
+
+                    }
+                }
+            }
+
+            var all = Math.pow(6, n);
+            var result = [];
+
+            for (var i = n; i <= num; i++) {
+                let cur = dp[n][i] * 1.0 / all
+                result.push(cur)
+            }
+            return result;
+        };
+
+        let res = twoSum(2);
+        console.log(res);
     </script>
+
+
+
 </body>
 
 </html>

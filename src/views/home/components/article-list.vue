@@ -1,6 +1,6 @@
 <template>
 
-    <div class="article-list">
+    <div class="article-list" ref="articleList">
         
         <!-- 
             List 组件通过 loading 和 finish 俩个变量控制加载状态，当组件
@@ -53,6 +53,8 @@ import { getArticlesContent } from '@/API/article.js'
 // 加载渲染文章内容(包括图片) 的组件
 import ArticleItem from '@/components/article-item'
 
+import {debounce} from 'lodash'
+
 export default {
 
     created(){
@@ -78,6 +80,30 @@ export default {
         }
     },
 
+    mounted(){
+        // 监听滚动距离
+        // 进入文章详情再返回后 可以回到之前滚动的位置
+        const articleList = this.$refs.articleList
+        // articleList.onscroll = ()=>{
+            
+        //     this.scrollTop = articleList.scrollTop
+        //     console.log(this.scrollTop);
+        // }
+        articleList.onscroll = debounce(()=>{
+            
+            this.scrollTop = articleList.scrollTop
+            // console.log(this.scrollTop);
+        },100)
+    },
+
+    // 被 keep-alive 缓存的组件激活时调用（包括首次渲染激活），
+    // 没有缓存不会调用
+    // 专门用于缓存相关
+    activated(){
+        // 把记录的 文章列表滑轮 距离 还原回来
+        this.$refs.articleList.scrollTop = this.scrollTop
+    },
+
     data(){
         return {
             // 用于渲染 文章内容的组件 需要的数据
@@ -93,6 +119,10 @@ export default {
 
             // 下拉刷新成功提示
             refreshSuccessText:'',
+
+            // 列表滑轮滚动距离
+            scrollTop:0,
+
 
             
 
