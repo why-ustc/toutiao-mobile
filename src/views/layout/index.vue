@@ -20,10 +20,6 @@
              <van-tabbar-item to="/video"  icon="video-o">视频</van-tabbar-item>
              <van-tabbar-item to="/my"  icon="manager-o">我的</van-tabbar-item>
         </van-tabbar>
-
-
-
-
     </div>
 
 </template>
@@ -33,7 +29,7 @@ export default {
 
     // 给组件起名字
     name:'layoutIndex',
-
+    
     mounted(){
         this.$store.commit('addCachePage','layoutIndex')
     },

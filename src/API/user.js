@@ -16,6 +16,7 @@ import request from '../utils/request'
 
 // 1：进行 axios 请求---参数是 手机号和验证码
 //    登录注册 axios请求
+// post 请求，俩个参数
 export const login = (userInfo) => {
     return request({
         method: 'post',

@@ -1,5 +1,7 @@
 
     1：vue-cli 会自动建立本地仓库，所以直接将创建的代码 提交到远程仓库即可
+          想要运行此项目：npm run serve
+
 
     2：修改 根组件APP.vue + route/index.js
 

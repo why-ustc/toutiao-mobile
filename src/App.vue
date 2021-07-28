@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <!-- 一级路由出口：在路由表中只有俩个一级路由login+home, -->
+    <!-- 一级路由出口：在路由表中只有俩个一级路由 login+home, -->
     <!-- login + home 一级路由就是渲染在这里 -->
 
     <!-- keep-alive 仅对该路由出口渲染的组件有效 -->

@@ -27,15 +27,17 @@
                     <!-- 验证码插槽 -->
                      <!-- @click.prevent="sendSms()": 阻止默认提交表单事件,
                             这里只需要对手机验证即可 -->
-                    <template #button>
-
+                    <!-- <template #button> -->
+                    <div slot="button">
                         <!-- 发送验证码后就显示 倒计时效果 -->
                         <van-count-down :time="1000 * 60" format="ss s"
                             v-if="iscountShow" @finish='iscountShow=false'></van-count-down>
 
                         <van-button size="small" class="send-btn" round v-else
                         @click.prevent="sendSms()" :loading='isloading'>发送验证码</van-button>
-                    </template>
+                    </div>
+                        
+                    <!-- </template> -->
 
                     
 
@@ -185,7 +187,6 @@ export default {
             // 先要单独检测手机号正确才能发送验证码
            try {
                 const res = await this.$refs.loginForm.validate('mobile')
-                
                 // 点击发送验证码后 就要显示加载状态，防止重复点击
                 this.isloading = true;
 
